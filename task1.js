@@ -25,3 +25,5 @@ function TableNumCreate(arrayMultiplier) {
     }
     return newArray.join(" ").replaceAll(",", " ");
 }
+
+TableMultiple(4);
