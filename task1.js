@@ -7,7 +7,7 @@ function TableMultiple(num) {
 
     const finaliArray = [numMultiple, dashs, tableNum];
 
-    console.group("Задание с таблицой умножения");
+    console.group("Задание 1 c таблицой умножения");
     console.log(finaliArray.join(" "));
     console.groupEnd();
 }
