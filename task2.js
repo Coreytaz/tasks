@@ -1,50 +1,52 @@
 function validateArr(arr) {
-    const arrLength = arr.length;
-    searchRemove(arr);
-    arr.sort((a, b) => a - b);
-    if (arr.length === 1 || arr.length === 1 || arr.length < 1 || arr.length === arrLength) {
-        return arr
-    } else {
-        arr = reverseArray(arr);
-        validateArr(arr)
-        console.log(arr);
+    function searchRemove(arr, result = []) {
+        if (arr.length === 0) {
+            return result;
+        }
+
+        const [number, ...numbers] = arr;
+
+        for (let digit of number) {
+            for (let i = 1; i < arr.length; i++) {
+                if (arr[i] && arr[i].includes(digit)) {
+                    arr[i] = false;
+                    if (arr[0]) {
+                        arr[0] = false;
+                    }
+                }
+            }
+        }
+
+        const newArr = arr.filter(Boolean);
+
+        if (newArr.length === arr.length) {
+            result.push(number);
+            return searchRemove(numbers, result);
+        }
+
+        return searchRemove(newArr, result);
     }
 
-}
-
-function searchRemove(arr) {
-    let [arrIterator, value] = arrayNumbers(arr);
-    let currentLength = arr.length;
-
-    while (value) {
-        let index = arr.indexOf(value);
-        const searchNums = [...value.toString()];
-
-        currentRemove(arr, index, searchNums);
-
-        if (arr.length !== currentLength) arr.splice(index, 1);
-        currentLength = arr.length;
-        value = arrIterator.next().value;
+    function check(curr, prev) {
+        return curr.length === 1 || curr.length === 0 || curr.length === prev.length;
     }
-}
 
-const arrayNumbers = (arr) => {
-    const arrIterator = arr[Symbol.iterator]();
-    return [arrIterator, arrIterator.next().value];
-};
+    let a = arr.slice().sort((a, b) => a - b);
+    let prevRes = a.map(String);
+    let currRes = searchRemove(prevRes);
 
-function currentRemove(arr, index, searchNums) {
-    arr.slice(index + 1).filter((elem) => {
-        const i = arr.indexOf(elem);
-        searchNums.some((num) => elem.toString().includes(num))
-            && arr.splice(i, 1);
-    });
-}
+    while (!check(currRes, prevRes)) {
+        prevRes = currRes;
+        currRes = searchRemove(currRes
+            .map(el => Math.pow(el.split('').reverse().join(''), 2))
+            .sort((a, b) => a - b)
+            .map(String)
+        );
+    }
 
-function reverseArray(arr) {
-    return arr.map((item) => +item.toString().split('').reverse().join('')).map((item) => item * item)
+    return currRes;
 }
 
 console.group('Задание 2 с массивом');
-validateArr([41, 55, 61, 1, 8, 27, 37, 39]);
+console.log(validateArr([41, 55, 61, 1, 8, 27, 37, 39]));
 console.groupEnd();
