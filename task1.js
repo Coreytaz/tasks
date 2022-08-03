@@ -14,7 +14,6 @@ function TableMultiple(num) {
         for (i = 0; i < arr.length; i++) {
             newArr.push(arr[i].toString().padStart(lastString[i]))
         }
-        console.log(newArr);
 
         lastArray.push(arrayMultiplier[index].toString().padStart(firstColumnWidth) + '|' + newArr.join(' ') + '\n')
 
