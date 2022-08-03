@@ -3,16 +3,18 @@ function TableMultiple(num) {
     let numMultiple = [];
     let lastArray = [];
     const tableNum = TableNumCreate(arrayMultiplier);
-
     lastString = tableNum[tableNum.length - 1].map(item => item.toString().length);
-    firstColumnWidth = arrayMultiplier[arrayMultiplier.length - 1].toString().length
-    const rows = (arr, index) => {
+    firstColumnWidth = arrayMultiplier[arrayMultiplier.length - 1].toString().length;
+
+
+    const createRows = (arr, index) => {
 
         let newArr = []
 
         for (i = 0; i < arr.length; i++) {
             newArr.push(arr[i].toString().padStart(lastString[i]))
         }
+        console.log(newArr);
 
         lastArray.push(arrayMultiplier[index].toString().padStart(firstColumnWidth) + '|' + newArr.join(' ') + '\n')
 
@@ -21,7 +23,7 @@ function TableMultiple(num) {
 
     for (let i = 0; i < tableNum.length; i++) {
 
-        rows(tableNum[i], i)
+        createRows(tableNum[i], i)
     }
 
     for (let i = 0; i < arrayMultiplier.length; i++) {
